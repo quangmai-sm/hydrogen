@@ -1,62 +1,82 @@
-# Gemini Code Analysis: Shopify Hydrogen Storefront
+# GEMINI.md
 
 ## Project Overview
 
-This project is a Shopify Hydrogen storefront, built with the Skeleton template. It serves as a minimal starting point for developing a headless commerce experience. The application is built using React, TypeScript, and Vite, with routing handled by React Router. It leverages Shopify's Storefront API via GraphQL for product data and customer accounts. Styling is implemented with Tailwind CSS.
+This is a Hydrogen project, a Shopify stack for headless commerce. It uses Remix as its underlying framework. The project is set up with a minimal set of components, queries, and tooling to get started with Hydrogen.
 
-The project is structured to work with Oxygen, Shopify's deployment platform for Hydrogen storefronts.
+**Main Technologies:**
 
-**Key Technologies:**
+*   **Hydrogen:** Shopify's stack for headless commerce.
+*   **Remix:** A full-stack web framework.
+*   **React:** A JavaScript library for building user interfaces.
+*   **Vite:** A build tool that provides a faster and leaner development experience.
+*   **Tailwind CSS:** A utility-first CSS framework.
+*   **GraphQL:** A query language for APIs.
+*   **TypeScript:** A typed superset of JavaScript.
 
-*   **Framework:** Shopify Hydrogen / React Router
-*   **Language:** TypeScript
-*   **UI Library:** React
-*   **Build Tool:** Vite
-*   **Styling:** Tailwind CSS
-*   **API:** GraphQL (Shopify Storefront API)
-*   **Deployment:** Shopify Oxygen
+**Architecture:**
 
-## Documentation
-https://shopify.dev/docs/storefronts/headless/hydrogen/getting-started
+The project follows a standard Remix application structure. The entry point for the server is `server.ts`, which creates a Hydrogen context and handles requests. The main application code is in the `app` directory, with the root component being `app/root.tsx`. The project uses file-based routing, with routes defined in the `app/routes` directory.
 
 ## Building and Running
 
-The following commands are available in `package.json` to manage the application lifecycle:
+**Development:**
 
-*   **Development:** To start the local development server with hot-reloading and code generation.
-    ```bash
-    npm run dev
-    ```
+To run the project in development mode, use the following command:
 
-*   **Build:** To build the application for production. This includes code generation.
-    ```bash
-    npm run build
-    ```
+```bash
+npm run dev
+```
 
-*   **Preview:** To preview the production build locally.
-    ```bash
-    npm run preview
-    ```
+**Production:**
 
-*   **Linting:** To run ESLint and check for code quality issues.
-    ```bash
-    npm run lint
-    ```
+To build the project for production, use the following command:
 
-*   **Type Checking:** To run the TypeScript compiler and check for type errors.
-    ```bash
-    npm run typecheck
-    ```
+```bash
+npm run build
+```
 
-*   **Code Generation:** To manually generate TypeScript types from the GraphQL schema.
-    ```bash
-    npm run codegen
-    ```
+**Linting:**
 
-## Development Conventions
+To lint the project, use the following command:
 
-*   **Code Style:** The project uses Prettier for automated code formatting, with the configuration defined in `package.json` (`@shopify/prettier-config`).
-*   **Linting:** ESLint is configured in `eslint.config.js` to enforce code quality and consistency.
-*   **File-based Routing:** The application uses a file-based routing system managed by React Router. Routes are defined in the `app/routes/` directory.
-*   **GraphQL:** GraphQL queries and mutations are located in the `app/graphql/` directory. The project is configured to automatically generate TypeScript types from these GraphQL operations.
-*   **Component Structure:** Reusable React components are located in the `app/components/` directory.
+```bash
+npm run lint
+```
+
+**Type Checking:**
+
+To perform type checking, use the following command:
+
+```bash
+npm run typecheck
+```
+
+## Shopify Hydrogen Documentation
+
+This section provides a brief overview of important commands and concepts for working with Shopify Hydrogen. For more detailed information, please refer to the official [Hydrogen repository](https://github.com/Shopify/hydrogen).
+
+### Getting Started
+
+To create a new Hydrogen project, you can use one of the following commands, depending on your needs:
+
+*   **Default template:** `npm create @shopify/hydrogen@latest`
+*   **B2B template:** `npm create @shopify/hydrogen@latest -- --template b2b`
+*   **Multipass template:** `npm create @shopify/hydrogen@latest -- --template multipass`
+
+### Important Packages
+
+When working with Hydrogen, you may need to install the following packages:
+
+*   **`@shopify/hydrogen`:** Provides opinionated tools and utilities for building commerce applications with Remix.
+*   **`@shopify/hydrogen-react`:** Offers unopinionated and performant Shopify-specific commerce components, hooks, and utilities.
+*   **`@shopify/cli-hydrogen`:** The Hydrogen extension for the Shopify CLI, used for managing Hydrogen projects.
+*   **`@shopify/mini-oxygen`:** A local runtime for Hydrogen apps that simulates the Oxygen production environment.
+
+### Development
+
+To start the local development server, run the following command:
+
+```bash
+npm run dev
+```
