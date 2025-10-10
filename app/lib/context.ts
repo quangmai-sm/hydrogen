@@ -1,18 +1,20 @@
 import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
+import {Wishlist} from '~/lib/wishlist';
 
-// Define the additional context object
-const additionalContext = {
-  // Additional context for custom properties, CMS clients, 3P SDKs, etc.
-  // These will be available as both context.propertyName and context.get(propertyContext)
-  // Example of complex objects that could be added:
-  // cms: await createCMSClient(env),
-  // reviews: await createReviewsClient(env),
-} as const;
+// Define the additional context object factory
+// This needs to be a function to access session
+function createAdditionalContext(session: AppSession) {
+  return {
+    // Additional context for custom properties, CMS clients, 3P SDKs, etc.
+    // These will be available as both context.propertyName and context.get(propertyContext)
+    wishlist: new Wishlist(session),
+  } as const;
+}
 
 // Automatically augment HydrogenAdditionalContext with the additional context type
-type AdditionalContextType = typeof additionalContext;
+type AdditionalContextType = ReturnType<typeof createAdditionalContext>;
 
 declare global {
   interface HydrogenAdditionalContext extends AdditionalContextType {}
@@ -53,7 +55,7 @@ export async function createHydrogenRouterContext(
         queryFragment: CART_QUERY_FRAGMENT,
       },
     },
-    additionalContext,
+    createAdditionalContext(session),
   );
 
   return hydrogenContext;

@@ -21,6 +21,7 @@ interface PageLayoutProps {
   header: HeaderQuery;
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
+  wishlistCount: number;
   children?: React.ReactNode;
 }
 
@@ -31,6 +32,7 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  wishlistCount,
 }: PageLayoutProps) {
   return (
     <Aside.Provider>
@@ -43,6 +45,7 @@ export function PageLayout({
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
+          wishlistCount={wishlistCount}
         />
       )}
       <main>{children}</main>

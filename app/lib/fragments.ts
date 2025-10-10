@@ -232,3 +232,51 @@ export const FOOTER_QUERY = `#graphql
   }
   ${MENU_FRAGMENT}
 ` as const;
+
+export const WISHLIST_ITEM_FRAGMENT = `#graphql
+  fragment WishlistItem on ProductVariant {
+    id
+    title
+    availableForSale
+    price {
+      amount
+      currencyCode
+    }
+    compareAtPrice {
+      amount
+      currencyCode
+    }
+    image {
+      id
+      url
+      altText
+      width
+      height
+    }
+    product {
+      id
+      handle
+      title
+      vendor
+    }
+    selectedOptions {
+      name
+      value
+    }
+  }
+` as const;
+
+export const WISHLIST_QUERY = `#graphql
+  query WishlistItems(
+    $country: CountryCode
+    $language: LanguageCode
+    $ids: [ID!]!
+  ) @inContext(country: $country, language: $language) {
+    nodes(ids: $ids) {
+      ... on ProductVariant {
+        ...WishlistItem
+      }
+    }
+  }
+  ${WISHLIST_ITEM_FRAGMENT}
+` as const;

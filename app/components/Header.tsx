@@ -7,12 +7,14 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import {WishlistIcon} from '~/components/WishlistIcon';
 
 interface HeaderProps {
   header: HeaderQuery;
   cart: Promise<CartApiQueryFragment | null>;
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
+  wishlistCount: number;
 }
 
 type Viewport = 'desktop' | 'mobile';
@@ -22,6 +24,7 @@ export function Header({
   isLoggedIn,
   cart,
   publicStoreDomain,
+  wishlistCount,
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
@@ -35,7 +38,11 @@ export function Header({
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderCtas
+        isLoggedIn={isLoggedIn}
+        cart={cart}
+        wishlistCount={wishlistCount}
+      />
     </header>
   );
 }
@@ -98,7 +105,8 @@ export function HeaderMenu({
 function HeaderCtas({
   isLoggedIn,
   cart,
-}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
+  wishlistCount,
+}: Pick<HeaderProps, 'isLoggedIn' | 'cart' | 'wishlistCount'>) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
@@ -110,6 +118,7 @@ function HeaderCtas({
         </Suspense>
       </NavLink>
       <SearchToggle />
+      <WishlistIcon count={wishlistCount} />
       <CartToggle cart={cart} />
     </nav>
   );
