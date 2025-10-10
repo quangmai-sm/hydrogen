@@ -20,7 +20,7 @@ export class Wishlist {
    */
   getAll(): WishlistItem[] {
     const items = this.#session.get(WISHLIST_SESSION_KEY);
-    return Array.isArray(items) ? items : [];
+    return Array.isArray(items) ? (items as string[]) : [];
   }
 
   /**
