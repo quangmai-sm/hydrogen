@@ -34,6 +34,6 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['.tryhydrogen.dev', '.trycloudflare.com'],
+    allowedHosts: ['.tryhydrogen.dev', '.trycloudflare.com', 'honeybee-ruling-feline.ngrok-free.app'],
   },
 });

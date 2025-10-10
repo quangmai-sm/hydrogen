@@ -11,6 +11,7 @@ import {
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
+import {WishlistButton} from '~/components/WishlistButton';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
 export const meta: Route.MetaFunction = ({data}) => {
@@ -39,7 +40,7 @@ export async function loader(args: Route.LoaderArgs) {
  */
 async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
   const {handle} = params;
-  const {storefront} = context;
+  const {storefront, wishlist} = context;
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
@@ -59,8 +60,14 @@ async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
   // The API handle might be localized, so redirect to the localized handle
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
+  // Check if current variant is in wishlist
+  const selectedVariantId =
+    product.selectedOrFirstAvailableVariant?.id || '';
+  const isInWishlist = wishlist.has(selectedVariantId);
+
   return {
     product,
+    isInWishlist,
   };
 }
 
@@ -77,7 +84,7 @@ function loadDeferredData({context, params}: Route.LoaderArgs) {
 }
 
 export default function Product() {
-  const {product} = useLoaderData<typeof loader>();
+  const {product, isInWishlist} = useLoaderData<typeof loader>();
 
   // Optimistically selects a variant with given available variant information
   const selectedVariant = useOptimisticVariant(
@@ -101,7 +108,15 @@ export default function Product() {
     <div className="product">
       <ProductImage image={selectedVariant?.image} />
       <div className="product-main">
-        <h1>{title}</h1>
+        <div className="product-header">
+          <h1>{title}</h1>
+          <WishlistButton
+            variantId={selectedVariant?.id || ''}
+            productId={product.id}
+            initialIsInWishlist={isInWishlist}
+            size="lg"
+          />
+        </div>
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}

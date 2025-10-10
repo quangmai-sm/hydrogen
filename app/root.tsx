@@ -99,7 +99,7 @@ export async function loader(args: Route.LoaderArgs) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 async function loadCriticalData({context}: Route.LoaderArgs) {
-  const {storefront} = context;
+  const {storefront, wishlist} = context;
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
@@ -111,7 +111,10 @@ async function loadCriticalData({context}: Route.LoaderArgs) {
     // Add other queries here, so that they are loaded in parallel
   ]);
 
-  return {header};
+  return {
+    header,
+    wishlistCount: wishlist.count(),
+  };
 }
 
 /**
