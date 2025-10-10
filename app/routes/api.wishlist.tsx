@@ -1,4 +1,4 @@
-import {json} from 'react-router';
+import {data} from 'react-router';
 import type {Route} from './+types/api.wishlist';
 
 export async function loader({context}: Route.LoaderArgs) {
@@ -7,7 +7,7 @@ export async function loader({context}: Route.LoaderArgs) {
   const items = wishlist.getAll();
   const count = wishlist.count();
 
-  return json(
+  return data(
     {items, count},
     {
       headers: session.isPending
@@ -25,7 +25,7 @@ export async function action({request, context}: Route.ActionArgs) {
   const variantId = formData.get('variantId');
 
   if (!variantId || typeof variantId !== 'string') {
-    return json({error: 'Invalid variant ID'}, {status: 400});
+    return data({error: 'Invalid variant ID'}, {status: 400});
   }
 
   let added = false;
@@ -43,10 +43,10 @@ export async function action({request, context}: Route.ActionArgs) {
       added = wishlist.toggle(variantId);
       break;
     default:
-      return json({error: 'Invalid action'}, {status: 400});
+      return data({error: 'Invalid action'}, {status: 400});
   }
 
-  return json(
+  return data(
     {
       success: true,
       added,

@@ -1,4 +1,4 @@
-import {useLoaderData, Link, useFetcher} from 'react-router';
+import {useLoaderData, Link, useFetcher, data} from 'react-router';
 import type {Route} from './+types/wishlist';
 import {WISHLIST_QUERY} from '~/lib/fragments';
 import {Money, Image} from '@shopify/hydrogen';
@@ -38,14 +38,14 @@ export async function action({request, context}: Route.ActionArgs) {
   const {wishlist, session, cart} = context;
 
   const formData = await request.formData();
-  const action = formData.get('action');
+  const actionType = formData.get('action');
   const variantId = formData.get('variantId');
 
   if (!variantId || typeof variantId !== 'string') {
-    return {error: 'Invalid variant ID'};
+    return data({error: 'Invalid variant ID'}, {status: 400});
   }
 
-  switch (action) {
+  switch (actionType) {
     case 'remove':
       wishlist.remove(variantId);
       break;
@@ -55,15 +55,17 @@ export async function action({request, context}: Route.ActionArgs) {
       wishlist.remove(variantId);
       break;
     default:
-      return {error: 'Invalid action'};
+      return data({error: 'Invalid action'}, {status: 400});
   }
 
-  return {
-    success: true,
-    headers: {
-      'Set-Cookie': await session.commit(),
+  return data(
+    {success: true},
+    {
+      headers: {
+        'Set-Cookie': await session.commit(),
+      },
     },
-  };
+  );
 }
 
 export default function Wishlist() {
