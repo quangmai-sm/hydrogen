@@ -17,14 +17,23 @@ export function Footer({
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
-              />
-            )}
+          <footer className="footer border-t border-gray-200">
+            <div className="max-w-7xl mx-auto py-16 px-6">
+              <div className="text-center mb-12">
+                <h3 className="font-serif text-2xl mb-2 tracking-tight">{header.shop.name}</h3>
+                <p className="text-gray-600 text-sm">Timeless elegance, exceptional quality</p>
+              </div>
+              {footer?.menu && header.shop.primaryDomain?.url && (
+                <FooterMenu
+                  menu={footer.menu}
+                  primaryDomainUrl={header.shop.primaryDomain.url}
+                  publicStoreDomain={publicStoreDomain}
+                />
+              )}
+              <div className="text-center mt-12 text-sm text-gray-500">
+                <p>&copy; {new Date().getFullYear()} {header.shop.name}. All rights reserved.</p>
+              </div>
+            </div>
           </footer>
         )}
       </Await>
@@ -42,7 +51,7 @@ function FooterMenu({
   publicStoreDomain: string;
 }) {
   return (
-    <nav className="footer-menu" role="navigation">
+    <nav className="footer-menu flex justify-center flex-wrap gap-8 text-sm" role="navigation">
       {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
@@ -54,7 +63,13 @@ function FooterMenu({
             : item.url;
         const isExternal = !url.startsWith('/');
         return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
+          <a
+            href={url}
+            key={item.id}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-gray-600 hover:text-black transition-colors uppercase tracking-wider"
+          >
             {item.title}
           </a>
         ) : (
@@ -64,6 +79,7 @@ function FooterMenu({
             prefetch="intent"
             style={activeLinkStyle}
             to={url}
+            className="text-gray-600 hover:text-black transition-colors uppercase tracking-wider"
           >
             {item.title}
           </NavLink>
@@ -123,7 +139,7 @@ function activeLinkStyle({
   isPending: boolean;
 }) {
   return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
+    fontWeight: isActive ? '500' : '400',
+    color: isPending ? '#8b8b8b' : '#4b5563',
   };
 }

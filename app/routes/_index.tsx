@@ -75,15 +75,35 @@ function FeaturedCollection({
   const image = collection?.image;
   return (
     <Link
-      className="featured-collection"
+      className="featured-collection group relative block overflow-hidden"
       to={`/collections/${collection.handle}`}
+      style={{minHeight: '100vh'}}
     >
       {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
+        <div className="featured-collection-image absolute inset-0">
+          <Image
+            data={image}
+            sizes="100vw"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/20" />
         </div>
       )}
-      <h1>{collection.title}</h1>
+      <div className="relative z-10 flex items-center justify-center h-screen">
+        <div className="text-center px-6 max-w-4xl mx-auto">
+          <h1 className="text-white text-6xl md:text-7xl lg:text-8xl font-serif mb-6 tracking-tight animate-fade-in-up">
+            {collection.title}
+          </h1>
+          <p className="text-white/90 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style={{animationDelay: '100ms'}}>
+            Discover our curated collection of timeless pieces
+          </p>
+          <div className="inline-block animate-fade-in-up" style={{animationDelay: '200ms'}}>
+            <span className="inline-block border border-white text-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">
+              Explore Collection
+            </span>
+          </div>
+        </div>
+      </div>
     </Link>
   );
 }
@@ -94,23 +114,35 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
+    <section className="recommended-products py-24 px-6 max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-serif mb-4 tracking-tight">
+          Curated Selection
+        </h2>
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          Handpicked pieces that embody timeless elegance and exceptional craftsmanship
+        </p>
+      </div>
+      <Suspense fallback={<div className="text-center text-gray-500">Loading...</div>}>
         <Await resolve={products}>
           {(response) => (
             <div className="recommended-products-grid">
               {response
-                ? response.products.nodes.map((product) => (
-                    <ProductItem key={product.id} product={product} />
+                ? response.products.nodes.map((product, index) => (
+                    <div
+                      key={product.id}
+                      className="animate-fade-in-up"
+                      style={{animationDelay: `${index * 50}ms`}}
+                    >
+                      <ProductItem product={product} loading={index < 2 ? 'eager' : 'lazy'} />
+                    </div>
                   ))
                 : null}
             </div>
           )}
         </Await>
       </Suspense>
-      <br />
-    </div>
+    </section>
   );
 }
 

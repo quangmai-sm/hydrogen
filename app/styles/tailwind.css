@@ -1,6 +1,279 @@
 /**
  * Configure Tailwind v4 in this file using CSS variables and directives:
  * https://tailwindcss.com/docs/v4-beta#css-first-configuration
+ *
+ * Theme: Minimalist Luxury
+ * Aesthetic: Clean, spacious, high-end fashion
  */
 
 @import 'tailwindcss';
+
+@theme {
+  /* ===== COLORS - Minimalist Luxury Palette ===== */
+  --color-primary: #000000;
+  --color-secondary: #f5f5f5;
+  --color-accent: #8b8b8b;
+  --color-background: #ffffff;
+  --color-text-primary: #000000;
+  --color-text-secondary: #8b8b8b;
+  --color-border: #e5e5e5;
+
+  /* shadcn/ui compatible color tokens */
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-card: #ffffff;
+  --color-card-foreground: #000000;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #000000;
+  --color-primary: #000000;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f5f5f5;
+  --color-secondary-foreground: #000000;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #8b8b8b;
+  --color-accent: #f5f5f5;
+  --color-accent-foreground: #000000;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e5e5e5;
+  --color-input: #e5e5e5;
+  --color-ring: #000000;
+
+  /* ===== TYPOGRAPHY ===== */
+  /* Font Families */
+  --font-family-serif: 'Playfair Display', Georgia, serif;
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  /* Font Sizes - Elegant Scale */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 2rem;        /* 32px */
+  --font-size-4xl: 2.5rem;      /* 40px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+
+  /* Line Heights - Generous spacing */
+  --line-height-none: 1;
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.4;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.8;
+  --line-height-loose: 2;
+
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* ===== SPACING - Generous white space ===== */
+  --spacing-0: 0;
+  --spacing-px: 1px;
+  --spacing-0\.5: 0.125rem;   /* 2px */
+  --spacing-1: 0.25rem;       /* 4px */
+  --spacing-1\.5: 0.375rem;   /* 6px */
+  --spacing-2: 0.5rem;        /* 8px */
+  --spacing-2\.5: 0.625rem;   /* 10px */
+  --spacing-3: 0.75rem;       /* 12px */
+  --spacing-3\.5: 0.875rem;   /* 14px */
+  --spacing-4: 1rem;          /* 16px */
+  --spacing-5: 1.25rem;       /* 20px */
+  --spacing-6: 1.5rem;        /* 24px */
+  --spacing-7: 1.75rem;       /* 28px */
+  --spacing-8: 2rem;          /* 32px */
+  --spacing-9: 2.25rem;       /* 36px */
+  --spacing-10: 2.5rem;       /* 40px */
+  --spacing-11: 2.75rem;      /* 44px */
+  --spacing-12: 3rem;         /* 48px */
+  --spacing-14: 3.5rem;       /* 56px */
+  --spacing-16: 4rem;         /* 64px */
+  --spacing-20: 5rem;         /* 80px */
+  --spacing-24: 6rem;         /* 96px */
+  --spacing-28: 7rem;         /* 112px */
+  --spacing-32: 8rem;         /* 128px */
+  --spacing-36: 9rem;         /* 144px */
+  --spacing-40: 10rem;        /* 160px */
+  --spacing-44: 11rem;        /* 176px */
+  --spacing-48: 12rem;        /* 192px */
+  --spacing-52: 13rem;        /* 208px */
+  --spacing-56: 14rem;        /* 224px */
+  --spacing-60: 15rem;        /* 240px */
+  --spacing-64: 16rem;        /* 256px */
+  --spacing-72: 18rem;        /* 288px */
+  --spacing-80: 20rem;        /* 320px */
+  --spacing-96: 24rem;        /* 384px */
+
+  /* ===== SHADOWS - Subtle, elegant shadows ===== */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+
+  /* ===== TRANSITIONS - Smooth, refined animations ===== */
+  --transition-duration-75: 75ms;
+  --transition-duration-100: 100ms;
+  --transition-duration-150: 150ms;
+  --transition-duration-200: 200ms;
+  --transition-duration-300: 300ms;
+  --transition-duration-400: 400ms;
+  --transition-duration-500: 500ms;
+  --transition-duration-700: 700ms;
+  --transition-duration-1000: 1000ms;
+
+  --transition-timing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-timing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --transition-timing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --transition-timing-ease-linear: linear;
+
+  /* ===== BORDERS ===== */
+  --border-width-0: 0;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+  --border-width-8: 8px;
+
+  --border-radius-none: 0;
+  --border-radius-sm: 0.125rem;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --border-radius-2xl: 1rem;
+  --border-radius-3xl: 1.5rem;
+  --border-radius-full: 9999px;
+
+  /* ===== LAYOUT ===== */
+  --header-height: 80px;
+  --max-width-sm: 640px;
+  --max-width-md: 768px;
+  --max-width-lg: 1024px;
+  --max-width-xl: 1280px;
+  --max-width-2xl: 1400px;
+  --max-width-full: 100%;
+}
+
+/* ===== CUSTOM ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.animate-fade-in {
+  animation: fadeIn 400ms ease-in-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 400ms ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 300ms ease-out;
+}
+
+.animate-slide-in-bottom {
+  animation: slideInFromBottom 300ms ease-out;
+}
+
+/* Hover effects for Minimalist Luxury theme */
+.hover-lift {
+  transition: transform 300ms ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.hover-zoom {
+  transition: transform 400ms ease-in-out;
+  overflow: hidden;
+}
+
+.hover-zoom:hover img {
+  transform: scale(1.05);
+}
+
+.hover-zoom img {
+  transition: transform 400ms ease-in-out;
+}
+
+/* Underline animation for links */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 300ms ease-in-out;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Smooth transitions for all interactive elements */
+.smooth-transition {
+  transition: all 300ms ease-in-out;
+}
+
+/* Generous line height for body text */
+.prose-luxury {
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+/* Header on scroll effect */
+.header-scrolled {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 300ms ease-in-out;
+}

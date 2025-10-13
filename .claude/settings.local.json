@@ -8,7 +8,9 @@
       "Bash(curl:*)",
       "Bash(lsof:*)",
       "mcp__playwright",
-      "Read(//Users/vnhcmlap-0093/.claude/**)"
+      "mcp__shadcn-ui",
+      "Read(//Users/vnhcmlap-0093/.claude/**)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

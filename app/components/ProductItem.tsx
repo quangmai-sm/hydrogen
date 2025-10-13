@@ -21,24 +21,27 @@ export function ProductItem({
   const image = product.featuredImage;
   return (
     <Link
-      className="product-item"
+      className="product-item group block"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
     >
       {image && (
-        <Image
-          alt={image.altText || product.title}
-          aspectRatio="1/1"
-          data={image}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
+        <div className="overflow-hidden mb-4 bg-gray-50">
+          <Image
+            alt={image.altText || product.title}
+            aspectRatio="1/1"
+            data={image}
+            loading={loading}
+            sizes="(min-width: 45em) 400px, 100vw"
+            className="transition-transform duration-400 ease-in-out group-hover:scale-105"
+          />
+        </div>
       )}
-      <h4>{product.title}</h4>
-      <small>
+      <h4 className="text-base font-serif mb-2 tracking-tight">{product.title}</h4>
+      <div className="text-sm text-gray-600">
         <Money data={product.priceRange.minVariantPrice} />
-      </small>
+      </div>
     </Link>
   );
 }

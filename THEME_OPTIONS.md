@@ -267,12 +267,87 @@ I want Theme 1 but with [specific changes]
 ## Technical Notes
 
 - All themes will be built with **Tailwind v4** using CSS variables
+- **shadcn/ui components** will be used for UI elements via MCP integration
 - Fully responsive (mobile-first approach)
 - Optimized for Shopify Oxygen/Cloudflare Workers
 - Maintains Hydrogen best practices
 - SEO-optimized
 - Performance-focused (Lighthouse 90+)
 - Accessible (WCAG 2.1 AA)
+
+---
+
+## Implementation Approach
+
+### Method 1: Using shadcn/ui MCP Server
+
+Claude will use the shadcn/ui MCP server for base components:
+
+1. **Component Discovery**
+   - `mcp__shadcn-ui__list_components` - Browse all available components
+   - `mcp__shadcn-ui__get_component_metadata` - Get component details
+
+2. **Component Implementation**
+   - `mcp__shadcn-ui__get_component` - Get component source code
+   - `mcp__shadcn-ui__get_component_demo` - View usage examples
+   - Adapt components to work with React Router v7 and Hydrogen
+
+3. **Pre-built Sections**
+   - `mcp__shadcn-ui__list_blocks` - Browse pre-built blocks (dashboard, calendar, login, etc.)
+   - `mcp__shadcn-ui__get_block` - Get complete block implementations
+   - Customize blocks to match theme aesthetic
+
+4. **Directory Structure**
+   - `mcp__shadcn-ui__get_directory_structure` - Explore repository structure
+
+### Method 2: Using shadcnblocks.com via Playwright MCP
+
+Claude will use Playwright MCP to explore and learn from **shadcnblocks.com**:
+
+**Available Resources:**
+- **829+ Premium Blocks** organized by category:
+  - Hero (162), Feature (266), Footer (18), Content (4)
+  - Testimonial (28), Pricing (35), Login (7), Logos (11)
+  - About (10), Banner (7), Bento (8), Blog (22)
+  - Blogpost (6), Careers (9), Case Studies (6+3), Changelog (7)
+  - Chat Input (2), Code Example (5), Community (7), Compare (10)
+  - Compliance (3), Contact (13), CTA (25), Download (12)
+  - Experience (1), FAQ (15), Gallery (47), Integration (16)
+  - List (3), Navbar (13), Resources (4+2), Services (14+7)
+  - Signup (10), Stats (17), Team (10), Timeline (14), Waitlist (2)
+
+- **9 Premium Templates:**
+  1. **Zippay** (New, Sep 2025) - Fintech SaaS & Marketing
+  2. **Plasma** (Aug 2025) - Developer SaaS with docs & changelog
+  3. **Aspect** (Jul 2025) - Corporate marketing site
+  4. **Scalar** (Jun 2025) - Product/App/SaaS for developers
+  5. **Sonic** (May 2025) - Single product landing page
+  6. **Relative** (Mar 2025) - Marketing landing page
+  7. **Charter** (Feb 2025) - Fintech marketing site
+  8. **Streamline** (Jan 2025) - Modern landing page
+  9. **Mainline** (Jan 2025) - Minimal landing page (most popular)
+
+**Exploration Process:**
+1. Use `mcp__playwright__browser_navigate` to visit shadcnblocks.com
+2. Browse block categories via `mcp__playwright__browser_click`
+3. Take screenshots of designs via `mcp__playwright__browser_take_screenshot`
+4. Analyze layouts and patterns via `mcp__playwright__browser_snapshot`
+5. Adapt learned patterns to Hydrogen + React Router v7
+
+**Benefits of Combined Approach:**
+- shadcn/ui MCP: Production-ready base components (Radix UI)
+- shadcnblocks.com: Premium design patterns and inspiration
+- Playwright MCP: Visual learning and pattern analysis
+- Full TypeScript support
+- Maintained and updated by the community
+
+**Component Adaptation:**
+All components will be adapted to:
+- Use `react-router` imports instead of Next.js
+- Work with Hydrogen's context system
+- Match the selected theme's design tokens
+- Integrate with Shopify Storefront API data structures
+- Use Tailwind v4 configuration
 
 ---
 

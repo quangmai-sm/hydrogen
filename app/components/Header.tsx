@@ -29,8 +29,13 @@ export function Header({
   const {shop, menu} = header;
   return (
     <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+      <NavLink
+        prefetch="intent"
+        to="/"
+        end
+        className="text-xl font-serif tracking-tight hover:opacity-100 transition-opacity"
+      >
+        {shop.name}
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -86,7 +91,7 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
+            className="header-menu-item text-sm uppercase tracking-wider hover:opacity-100 transition-opacity"
             end
             key={item.id}
             onClick={close}
@@ -234,7 +239,8 @@ function activeLinkStyle({
   isPending: boolean;
 }) {
   return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
+    fontWeight: isActive ? '500' : '400',
+    color: isPending ? '#8b8b8b' : '#000000',
+    opacity: isActive ? '1' : '0.7',
   };
 }
