@@ -66,13 +66,6 @@ export default function Homepage() {
   );
 }
 
-/* Add wrapper styles for homepage */
-declare module 'react' {
-  interface CSSProperties {
-    '--home-padding'?: string;
-  }
-}
-
 function FeaturedCollection({
   collection,
 }: {
@@ -102,16 +95,8 @@ function RecommendedProducts({
 }) {
   return (
     <div className="recommended-products">
-      <h2 style={{
-        textAlign: 'center',
-        fontSize: '2.5rem',
-        marginBottom: '3rem',
-        fontWeight: '400',
-        letterSpacing: '-0.01em'
-      }}>
-        New Arrivals
-      </h2>
-      <Suspense fallback={<div style={{ textAlign: 'center', padding: '4rem 0' }}>Loading...</div>}>
+      <h2>Recommended Products</h2>
+      <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {(response) => (
             <div className="recommended-products-grid">
@@ -124,6 +109,7 @@ function RecommendedProducts({
           )}
         </Await>
       </Suspense>
+      <br />
     </div>
   );
 }
