@@ -1,15 +1,42 @@
 :root {
-  --aside-width: 400px;
+  --aside-width: 450px;
   --cart-aside-summary-height-with-discount: 300px;
   --cart-aside-summary-height: 250px;
-  --grid-item-width: 355px;
-  --header-height: 64px;
+  --grid-item-width: 380px;
+  --header-height: 80px;
   --color-dark: #000;
   --color-light: #fff;
 }
 
+/* Minimalist Luxury - Base Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #2D2D2D;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
 img {
-  border-radius: 4px;
+  border-radius: 2px;
+  transition: transform 300ms ease-in-out;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 300ms ease-in-out;
+}
+
+a:hover {
+  opacity: 0.7;
 }
 
 /*
@@ -24,7 +51,7 @@ img {
 
 /*
 * --------------------------------------------------
-* components/Aside
+* components/Aside - Minimalist Luxury
 * --------------------------------------------------
 */
 @media (max-width: 45em) {
@@ -34,35 +61,42 @@ img {
 }
 
 aside {
-  background: var(--color-light);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
   height: 100vh;
   width: min(var(--aside-width), 100vw);
   position: fixed;
   right: calc(-1 * var(--aside-width));
   top: 0;
-  transition: transform 200ms ease-in-out;
+  transition: transform 300ms ease-in-out;
+  z-index: 200;
 }
 
 aside header {
   align-items: center;
-  border-bottom: 1px solid var(--color-dark);
+  border-bottom: 1px solid #E5E5E5;
   display: flex;
   height: var(--header-height);
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 2rem;
 }
 
 aside header h3 {
   margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
 aside header .close {
-  font-weight: bold;
-  opacity: 0.8;
+  font-weight: 400;
+  opacity: 0.6;
   text-decoration: none;
-  transition: all 200ms;
-  width: 20px;
+  transition: all 300ms ease-in-out;
+  width: 24px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 aside header .close:hover {
@@ -75,11 +109,13 @@ aside header h2 {
 }
 
 aside main {
-  margin: 1rem;
+  margin: 2rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
 }
 
 aside p {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.75rem;
 }
 
 aside p:last-child {
@@ -87,11 +123,11 @@ aside p:last-child {
 }
 
 aside li {
-  margin-bottom: 0.125rem;
+  margin-bottom: 0.5rem;
 }
 
 .overlay {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
   bottom: 0;
   left: 0;
   opacity: 0;
@@ -99,10 +135,10 @@ aside li {
   position: fixed;
   right: 0;
   top: 0;
-  transition: opacity 400ms ease-in-out;
-  transition: opacity 400ms;
+  transition: opacity 300ms ease-in-out;
   visibility: hidden;
-  z-index: 10;
+  z-index: 150;
+  backdrop-filter: blur(2px);
 }
 
 .overlay .close-outside {
@@ -159,18 +195,84 @@ button.reset:hover:not(:has(> *)) {
 
 /*
 * --------------------------------------------------
-* components/Header
+* Buttons - Minimalist Luxury
+* --------------------------------------------------
+*/
+button[type="submit"],
+.button-primary {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 1rem 2.5rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+button[type="submit"]:hover:not(:disabled),
+.button-primary:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+}
+
+button[type="submit"]:disabled,
+.button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  background: transparent;
+  color: #000;
+  border: 1px solid #E5E5E5;
+  padding: 1rem 2.5rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  font-family: inherit;
+}
+
+.button-secondary:hover:not(:disabled) {
+  border-color: #000;
+}
+
+/*
+* --------------------------------------------------
+* components/Header - Minimalist Luxury
 * --------------------------------------------------
 */
 .header {
   align-items: center;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   display: flex;
   height: var(--header-height);
-  padding: 0 1rem;
+  padding: 0 3rem;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 100;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 300ms ease-in-out;
+}
+
+@media (max-width: 48em) {
+  .header {
+    padding: 0 1.5rem;
+  }
+}
+
+.header strong {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .header-menu-mobile-toggle {
@@ -182,60 +284,118 @@ button.reset:hover:not(:has(> *)) {
 .header-menu-mobile {
   display: flex;
   flex-direction: column;
-  grid-gap: 1rem;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.header-menu-mobile a {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.02em;
 }
 
 .header-menu-desktop {
   display: none;
-  grid-gap: 1rem;
-  @media (min-width: 45em) {
+  gap: 2.5rem;
+  @media (min-width: 48em) {
     display: flex;
-    grid-gap: 1rem;
-    margin-left: 3rem;
+    margin-left: 4rem;
   }
 }
 
 .header-menu-item {
   cursor: pointer;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  transition: all 300ms ease-in-out;
+}
+
+.header-menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #000;
+  transition: width 300ms ease-in-out;
+}
+
+.header-menu-item:hover::after {
+  width: 100%;
 }
 
 .header-ctas {
   align-items: center;
   display: flex;
-  grid-gap: 1rem;
+  gap: 2rem;
   margin-left: auto;
 }
 
 .header-ctas > * {
   min-width: fit-content;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+.header-ctas button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 300ms ease-in-out;
+}
+
+.header-ctas button:hover {
+  opacity: 0.6;
 }
 
 /*
 * --------------------------------------------------
-* components/Footer
+* components/Footer - Minimalist Luxury
 * --------------------------------------------------
 */
 .footer {
-  background: var(--color-dark);
+  background: #000;
   margin-top: auto;
+  padding: 4rem 3rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 48em) {
+  .footer {
+    padding: 3rem 1.5rem 2rem;
+  }
 }
 
 .footer-menu {
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  grid-gap: 1rem;
-  padding: 1rem;
+  gap: 2.5rem;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .footer-menu a {
-  color: var(--color-light);
+  color: #F5F5F5;
   min-width: fit-content;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 300ms ease-in-out;
+}
+
+.footer-menu a:hover {
+  color: #C9A961;
+  opacity: 1;
 }
 
 /*
 * --------------------------------------------------
-* components/Cart
+* components/Cart - Minimalist Luxury
 * --------------------------------------------------
 */
 .cart-main {
@@ -243,6 +403,7 @@ button.reset:hover:not(:has(> *)) {
   max-height: calc(100vh - var(--cart-aside-summary-height));
   overflow-y: auto;
   width: auto;
+  padding: 0 2rem 2rem;
 }
 
 .cart-main.with-discount {
@@ -251,13 +412,15 @@ button.reset:hover:not(:has(> *)) {
 
 .cart-line {
   display: flex;
-  padding: 0.75rem 0;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #F5F5F5;
+  gap: 1rem;
 }
 
 .cart-line img {
   height: 100%;
   display: block;
-  margin-right: 0.75rem;
+  border-radius: 2px;
 }
 
 .cart-summary-page {
@@ -266,26 +429,48 @@ button.reset:hover:not(:has(> *)) {
 
 .cart-summary-aside {
   background: white;
-  border-top: 1px solid var(--color-dark);
+  border-top: 1px solid #E5E5E5;
   bottom: 0;
-  padding-top: 0.75rem;
+  padding: 1.5rem 2rem;
   position: absolute;
-  width: calc(var(--aside-width) - 40px);
+  width: calc(var(--aside-width) - 4rem);
 }
 
 .cart-line-quantity {
   display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.cart-line-quantity button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #E5E5E5;
+  background: transparent;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  font-size: 0.875rem;
+}
+
+.cart-line-quantity button:hover {
+  border-color: #000;
 }
 
 .cart-discount {
   align-items: center;
   display: flex;
-  margin-top: 0.25rem;
+  margin-top: 0.75rem;
+  gap: 0.5rem;
 }
 
 .cart-subtotal {
   align-items: center;
   display: flex;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 /*
 * --------------------------------------------------
@@ -342,97 +527,194 @@ button.reset:hover:not(:has(> *)) {
 
 /*
 * --------------------------------------------------
-* routes/__index
+* routes/__index - Minimalist Luxury
 * --------------------------------------------------
 */
 .featured-collection {
   display: block;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   position: relative;
+  overflow: hidden;
+}
+
+.featured-collection h1 {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  color: #fff;
+  font-size: 3rem;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+@media (max-width: 48em) {
+  .featured-collection h1 {
+    font-size: 2rem;
+    left: 1.5rem;
+    bottom: 1.5rem;
+  }
 }
 
 .featured-collection-image {
   aspect-ratio: 1 / 1;
+  overflow: hidden;
   @media (min-width: 45em) {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 21 / 9;
   }
 }
 
 .featured-collection img {
-  height: auto;
-  max-height: 100%;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
+  transition: transform 500ms ease-in-out;
+}
+
+.featured-collection:hover img {
+  transform: scale(1.05);
 }
 
 .recommended-products-grid {
   display: grid;
-  grid-gap: 1.5rem;
+  gap: 3rem 2rem;
   grid-template-columns: repeat(2, 1fr);
-  @media (min-width: 45em) {
+  padding: 0 3rem;
+  margin-bottom: 4rem;
+  @media (min-width: 48em) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 64em) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.recommended-product img {
-  height: auto;
-}
-
-/*
-* --------------------------------------------------
-* routes/collections._index.tsx
-* --------------------------------------------------
-*/
-.collections-grid {
-  display: grid;
-  grid-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
-  margin-bottom: 2rem;
-}
-
-.collection-item img {
-  height: auto;
-}
-
-/*
-* --------------------------------------------------
-* routes/collections.$handle.tsx
-* --------------------------------------------------
-*/
-.collection-description {
-  margin-bottom: 1rem;
-  max-width: 95%;
-  @media (min-width: 45em) {
-    max-width: 600px;
+@media (max-width: 48em) {
+  .recommended-products-grid {
+    padding: 0 1.5rem;
   }
 }
 
-.products-grid {
-  display: grid;
-  grid-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
-  margin-bottom: 2rem;
-}
-
-.product-item img {
+.recommended-product img {
   height: auto;
   width: 100%;
 }
 
 /*
 * --------------------------------------------------
-* routes/products.$handle.tsx
+* routes/collections._index.tsx - Minimalist Luxury
+* --------------------------------------------------
+*/
+.collections-grid {
+  display: grid;
+  gap: 3rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin-bottom: 4rem;
+  padding: 0 3rem;
+}
+
+@media (max-width: 48em) {
+  .collections-grid {
+    padding: 0 1.5rem;
+    gap: 2rem 1rem;
+  }
+}
+
+.collection-item img {
+  height: auto;
+  width: 100%;
+  transition: transform 300ms ease-in-out;
+}
+
+.collection-item:hover img {
+  transform: scale(1.02);
+}
+
+/*
+* --------------------------------------------------
+* routes/collections.$handle.tsx - Minimalist Luxury
+* --------------------------------------------------
+*/
+.collection-description {
+  margin-bottom: 3rem;
+  max-width: 95%;
+  padding: 0 3rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #8B8B8B;
+  @media (min-width: 45em) {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 48em) {
+  .collection-description {
+    padding: 0 1.5rem;
+  }
+}
+
+.products-grid {
+  display: grid;
+  gap: 3rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 4rem;
+  padding: 0 3rem;
+}
+
+@media (max-width: 48em) {
+  .products-grid {
+    padding: 0 1.5rem;
+    gap: 2rem 1rem;
+  }
+}
+
+.product-item {
+  position: relative;
+}
+
+.product-item img {
+  height: auto;
+  width: 100%;
+  transition: transform 300ms ease-in-out;
+}
+
+.product-item:hover img {
+  transform: scale(1.02);
+}
+
+/*
+* --------------------------------------------------
+* routes/products.$handle.tsx - Minimalist Luxury
 * --------------------------------------------------
 */
 .product {
   display: grid;
-  @media (min-width: 45em) {
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 4rem;
+  padding: 0 3rem;
+  margin-bottom: 6rem;
+  gap: 3rem;
+  @media (min-width: 48em) {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 6rem;
+  }
+}
+
+@media (max-width: 48em) {
+  .product {
+    padding: 0 1.5rem;
+    margin-bottom: 4rem;
   }
 }
 
 .product h1 {
   margin-top: 0;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 48em) {
+  .product h1 {
+    font-size: 2rem;
+  }
 }
 
 .product-image img {
@@ -443,40 +725,69 @@ button.reset:hover:not(:has(> *)) {
 .product-main {
   align-self: start;
   position: sticky;
-  top: 6rem;
+  top: calc(var(--header-height) + 2rem);
 }
 
 .product-price-on-sale {
   display: flex;
-  grid-gap: 0.5rem;
+  gap: 1rem;
+  align-items: baseline;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
 }
 
 .product-price-on-sale s {
-  opacity: 0.5;
+  opacity: 0.4;
+  font-size: 1rem;
+  color: #8B8B8B;
 }
 
 .product-options-grid {
   display: flex;
   flex-wrap: wrap;
-  grid-gap: 0.75rem;
+  gap: 0.75rem;
+  margin: 2rem 0;
 }
 
-.product-options-item,
-.product-options-item:disabled {
-  padding: 0.25rem 0.5rem;
+.product-options-item {
+  padding: 0.75rem 1.5rem;
   background-color: transparent;
-  font-size: 1rem;
+  border: 1px solid #E5E5E5;
+  font-size: 0.875rem;
   font-family: inherit;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  letter-spacing: 0.03em;
+}
+
+.product-options-item:hover {
+  border-color: #000;
+}
+
+.product-options-item:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.product-options-item[aria-checked="true"] {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
 }
 
 .product-option-label-swatch {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 2rem;
+  height: 2rem;
   margin: 0.25rem 0;
+  border: 1px solid #E5E5E5;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .product-option-label-swatch img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /*

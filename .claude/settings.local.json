@@ -6,12 +6,11 @@
       "Bash(npm run dev:*)",
       "Bash(npm run typecheck:*)",
       "Bash(curl:*)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "mcp__playwright",
+      "Read(//Users/vnhcmlap-0093/.claude/**)"
     ],
     "deny": [],
     "ask": []
-  },
-  "allowedTools": [
-    "playwright:*"
-  ]
+  }
 }
