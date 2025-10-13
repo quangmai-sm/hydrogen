@@ -8,6 +8,7 @@ import {
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import {WishlistIcon} from '~/components/WishlistIcon';
+import {Button} from '~/components/ui/button';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -127,21 +128,23 @@ function HeaderCtas({
 function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
-    <button
-      className="header-menu-mobile-toggle reset"
+    <Button
+      variant="ghost"
+      size="icon"
+      className="header-menu-mobile-toggle"
       onClick={() => open('mobile')}
     >
       <h3>☰</h3>
-    </button>
+    </Button>
   );
 }
 
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
+    <Button variant="ghost" onClick={() => open('search')}>
       Search
-    </button>
+    </Button>
   );
 }
 

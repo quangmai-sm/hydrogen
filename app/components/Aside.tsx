@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import {Button} from '~/components/ui/button';
 
 type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
 type AsideContextValue = {
@@ -58,13 +59,23 @@ export function Aside({
       className={`overlay ${expanded ? 'expanded' : ''}`}
       role="dialog"
     >
-      <button className="close-outside" onClick={close} />
+      <div
+        className="close-outside"
+        onClick={close}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            close();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      />
       <aside>
         <header>
           <h3>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
+          <Button variant="ghost" size="icon" onClick={close} aria-label="Close">
             &times;
-          </button>
+          </Button>
         </header>
         <main>{children}</main>
       </aside>

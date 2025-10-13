@@ -14,6 +14,8 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import {Button} from '~/components/ui/button';
+import {Input} from '~/components/ui/input';
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -81,7 +83,7 @@ function SearchAside() {
         <SearchFormPredictive>
           {({fetchResults, goToSearch, inputRef}) => (
             <>
-              <input
+              <Input
                 name="q"
                 onChange={fetchResults}
                 onFocus={fetchResults}
@@ -91,7 +93,7 @@ function SearchAside() {
                 list={queriesDatalistId}
               />
               &nbsp;
-              <button onClick={goToSearch}>Search</button>
+              <Button onClick={goToSearch}>Search</Button>
             </>
           )}
         </SearchFormPredictive>

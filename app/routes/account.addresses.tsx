@@ -17,6 +17,10 @@ import {
   DELETE_ADDRESS_MUTATION,
   CREATE_ADDRESS_MUTATION,
 } from '~/graphql/customer-account/CustomerAddressMutations';
+import {Button} from '~/components/ui/button';
+import {Input} from '~/components/ui/input';
+import {Checkbox} from '~/components/ui/checkbox';
+import {Label} from '~/components/ui/label';
 
 export type ActionResponse = {
   addressId?: string | null;
@@ -308,13 +312,13 @@ function NewAddressForm() {
     >
       {({stateForMethod}) => (
         <div>
-          <button
+          <Button
             disabled={stateForMethod('POST') !== 'idle'}
             formMethod="POST"
             type="submit"
           >
             {stateForMethod('POST') !== 'idle' ? 'Creating' : 'Create'}
-          </button>
+          </Button>
         </div>
       )}
     </AddressForm>
@@ -337,20 +341,21 @@ function ExistingAddresses({
         >
           {({stateForMethod}) => (
             <div>
-              <button
+              <Button
                 disabled={stateForMethod('PUT') !== 'idle'}
                 formMethod="PUT"
                 type="submit"
               >
                 {stateForMethod('PUT') !== 'idle' ? 'Saving' : 'Save'}
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="outline"
                 disabled={stateForMethod('DELETE') !== 'idle'}
                 formMethod="DELETE"
                 type="submit"
               >
                 {stateForMethod('DELETE') !== 'idle' ? 'Deleting' : 'Delete'}
-              </button>
+              </Button>
             </div>
           )}
         </AddressForm>
@@ -380,8 +385,8 @@ export function AddressForm({
     <Form id={addressId}>
       <fieldset>
         <input type="hidden" name="addressId" defaultValue={addressId} />
-        <label htmlFor="firstName">First name*</label>
-        <input
+        <Label htmlFor="firstName">First name*</Label>
+        <Input
           aria-label="First name"
           autoComplete="given-name"
           defaultValue={address?.firstName ?? ''}
@@ -391,8 +396,8 @@ export function AddressForm({
           required
           type="text"
         />
-        <label htmlFor="lastName">Last name*</label>
-        <input
+        <Label htmlFor="lastName">Last name*</Label>
+        <Input
           aria-label="Last name"
           autoComplete="family-name"
           defaultValue={address?.lastName ?? ''}
@@ -402,8 +407,8 @@ export function AddressForm({
           required
           type="text"
         />
-        <label htmlFor="company">Company</label>
-        <input
+        <Label htmlFor="company">Company</Label>
+        <Input
           aria-label="Company"
           autoComplete="organization"
           defaultValue={address?.company ?? ''}
@@ -412,8 +417,8 @@ export function AddressForm({
           placeholder="Company"
           type="text"
         />
-        <label htmlFor="address1">Address line*</label>
-        <input
+        <Label htmlFor="address1">Address line*</Label>
+        <Input
           aria-label="Address line 1"
           autoComplete="address-line1"
           defaultValue={address?.address1 ?? ''}
@@ -423,8 +428,8 @@ export function AddressForm({
           required
           type="text"
         />
-        <label htmlFor="address2">Address line 2</label>
-        <input
+        <Label htmlFor="address2">Address line 2</Label>
+        <Input
           aria-label="Address line 2"
           autoComplete="address-line2"
           defaultValue={address?.address2 ?? ''}
@@ -433,8 +438,8 @@ export function AddressForm({
           placeholder="Address line 2"
           type="text"
         />
-        <label htmlFor="city">City*</label>
-        <input
+        <Label htmlFor="city">City*</Label>
+        <Input
           aria-label="City"
           autoComplete="address-level2"
           defaultValue={address?.city ?? ''}
@@ -444,8 +449,8 @@ export function AddressForm({
           required
           type="text"
         />
-        <label htmlFor="zoneCode">State / Province*</label>
-        <input
+        <Label htmlFor="zoneCode">State / Province*</Label>
+        <Input
           aria-label="State/Province"
           autoComplete="address-level1"
           defaultValue={address?.zoneCode ?? ''}
@@ -455,8 +460,8 @@ export function AddressForm({
           required
           type="text"
         />
-        <label htmlFor="zip">Zip / Postal Code*</label>
-        <input
+        <Label htmlFor="zip">Zip / Postal Code*</Label>
+        <Input
           aria-label="Zip"
           autoComplete="postal-code"
           defaultValue={address?.zip ?? ''}
@@ -466,8 +471,8 @@ export function AddressForm({
           required
           type="text"
         />
-        <label htmlFor="territoryCode">Country Code*</label>
-        <input
+        <Label htmlFor="territoryCode">Country Code*</Label>
+        <Input
           aria-label="territoryCode"
           autoComplete="country"
           defaultValue={address?.territoryCode ?? ''}
@@ -478,8 +483,8 @@ export function AddressForm({
           type="text"
           maxLength={2}
         />
-        <label htmlFor="phoneNumber">Phone</label>
-        <input
+        <Label htmlFor="phoneNumber">Phone</Label>
+        <Input
           aria-label="Phone Number"
           autoComplete="tel"
           defaultValue={address?.phoneNumber ?? ''}
@@ -490,13 +495,12 @@ export function AddressForm({
           type="tel"
         />
         <div>
-          <input
+          <Checkbox
             defaultChecked={isDefaultAddress}
             id="defaultAddress"
             name="defaultAddress"
-            type="checkbox"
           />
-          <label htmlFor="defaultAddress">Set as default address</label>
+          <Label htmlFor="defaultAddress">Set as default address</Label>
         </div>
         {error ? (
           <p>

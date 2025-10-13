@@ -23,6 +23,8 @@ import type {
   OrderItemFragment,
 } from 'customer-accountapi.generated';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {Button} from '~/components/ui/button';
+import {Input} from '~/components/ui/input';
 
 type OrdersLoaderData = {
   customer: CustomerOrdersFragment;
@@ -159,7 +161,7 @@ function OrderSearchForm({
         <legend className="order-search-legend">Filter Orders</legend>
 
         <div className="order-search-inputs">
-          <input
+          <Input
             type="search"
             name={ORDER_FILTER_FIELDS.NAME}
             placeholder="Order #"
@@ -167,7 +169,7 @@ function OrderSearchForm({
             defaultValue={currentFilters.name || ''}
             className="order-search-input"
           />
-          <input
+          <Input
             type="search"
             name={ORDER_FILTER_FIELDS.CONFIRMATION_NUMBER}
             placeholder="Confirmation #"
@@ -178,11 +180,12 @@ function OrderSearchForm({
         </div>
 
         <div className="order-search-buttons">
-          <button type="submit" disabled={isSearching}>
+          <Button type="submit" disabled={isSearching}>
             {isSearching ? 'Searching' : 'Search'}
-          </button>
+          </Button>
           {hasFilters && (
-            <button
+            <Button
+              variant="outline"
               type="button"
               disabled={isSearching}
               onClick={() => {
@@ -191,7 +194,7 @@ function OrderSearchForm({
               }}
             >
               Clear
-            </button>
+            </Button>
           )}
         </div>
       </fieldset>

@@ -12,6 +12,8 @@ import type {
   RegularSearchQuery,
   PredictiveSearchQuery,
 } from 'storefrontapi.generated';
+import {Button} from '~/components/ui/button';
+import {Input} from '~/components/ui/input';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: `Hydrogen | Search`}];
@@ -46,7 +48,7 @@ export default function SearchPage() {
       <SearchForm>
         {({inputRef}) => (
           <>
-            <input
+            <Input
               defaultValue={term}
               name="q"
               placeholder="Search…"
@@ -54,7 +56,7 @@ export default function SearchPage() {
               type="search"
             />
             &nbsp;
-            <button type="submit">Search</button>
+            <Button type="submit">Search</Button>
           </>
         )}
       </SearchForm>

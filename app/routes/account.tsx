@@ -7,6 +7,7 @@ import {
 } from 'react-router';
 import type {Route} from './+types/account';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
+import {Button} from '~/components/ui/button';
 
 export function shouldRevalidate() {
   return true;
@@ -91,7 +92,7 @@ function AccountMenu() {
 function Logout() {
   return (
     <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
+      &nbsp;<Button variant="link" type="submit">Sign out</Button>
     </Form>
   );
 }

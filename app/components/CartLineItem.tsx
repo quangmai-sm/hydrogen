@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import {ProductPrice} from './ProductPrice';
 import {useAside} from './Aside';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
+import {Button} from '~/components/ui/button';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
@@ -83,25 +84,29 @@ function CartLineQuantity({line}: {line: CartLine}) {
     <div className="cart-line-quantity">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           aria-label="Decrease quantity"
           disabled={quantity <= 1 || !!isOptimistic}
           name="decrease-quantity"
           value={prevQuantity}
         >
           <span>&#8722; </span>
-        </button>
+        </Button>
       </CartLineUpdateButton>
       &nbsp;
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
           disabled={!!isOptimistic}
         >
           <span>&#43;</span>
-        </button>
+        </Button>
       </CartLineUpdateButton>
       &nbsp;
       <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
@@ -128,9 +133,9 @@ function CartLineRemoveButton({
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button disabled={disabled} type="submit">
+      <Button variant="outline" disabled={disabled} type="submit">
         Remove
-      </button>
+      </Button>
     </CartForm>
   );
 }

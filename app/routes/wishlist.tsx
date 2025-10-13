@@ -3,6 +3,7 @@ import type {Route} from './+types/wishlist';
 import {WISHLIST_QUERY} from '~/lib/fragments';
 import {Money, Image} from '@shopify/hydrogen';
 import type {WishlistItemsQuery} from 'storefrontapi.generated';
+import {Button} from '~/components/ui/button';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: 'My Wishlist'}];
@@ -143,7 +144,7 @@ function WishlistItem({
         <div className="wishlist-item-actions">
           <fetcher.Form method="post">
             <input type="hidden" name="variantId" value={item.id} />
-            <button
+            <Button
               type="submit"
               name="action"
               value="addToCart"
@@ -154,12 +155,13 @@ function WishlistItem({
                 : !item.availableForSale
                   ? 'Sold Out'
                   : 'Add to Cart'}
-            </button>
+            </Button>
           </fetcher.Form>
 
           <fetcher.Form method="post">
             <input type="hidden" name="variantId" value={item.id} />
-            <button
+            <Button
+              variant="outline"
               type="submit"
               name="action"
               value="remove"
@@ -167,7 +169,7 @@ function WishlistItem({
               className="wishlist-remove-btn"
             >
               {isRemoving ? 'Removing...' : 'Remove'}
-            </button>
+            </Button>
           </fetcher.Form>
         </div>
       </div>

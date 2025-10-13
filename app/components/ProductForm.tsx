@@ -7,6 +7,7 @@ import type {
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
 import type {ProductFragment} from 'storefrontapi.generated';
+import {Button} from '~/components/ui/button';
 
 export function ProductForm({
   productOptions,
@@ -69,7 +70,8 @@ export function ProductForm({
                   // the variant so that SEO bots do not index these as
                   // duplicated links
                   return (
-                    <button
+                    <Button
+                      variant="outline"
                       type="button"
                       className={`product-options-item${
                         exists && !selected ? ' link' : ''
@@ -92,7 +94,7 @@ export function ProductForm({
                       }}
                     >
                       <ProductOptionSwatch swatch={swatch} name={name} />
-                    </button>
+                    </Button>
                   );
                 }
               })}

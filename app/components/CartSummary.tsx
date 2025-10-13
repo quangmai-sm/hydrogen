@@ -4,6 +4,8 @@ import {CartForm, Money, type OptimisticCart} from '@shopify/hydrogen';
 import {useEffect, useRef} from 'react';
 import {useFetcher} from 'react-router';
 import type {FetcherWithComponents} from 'react-router';
+import {Button} from '~/components/ui/button';
+import {Input} from '~/components/ui/input';
 
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
@@ -67,7 +69,7 @@ function CartDiscounts({
             <div className="cart-discount">
               <code>{codes?.join(', ')}</code>
               &nbsp;
-              <button>Remove</button>
+              <Button variant="outline">Remove</Button>
             </div>
           </UpdateDiscountForm>
         </div>
@@ -76,9 +78,9 @@ function CartDiscounts({
       {/* Show an input to apply a discount */}
       <UpdateDiscountForm discountCodes={codes}>
         <div>
-          <input type="text" name="discountCode" placeholder="Discount code" />
+          <Input type="text" name="discountCode" placeholder="Discount code" />
           &nbsp;
-          <button type="submit">Apply</button>
+          <Button variant="outline" type="submit">Apply</Button>
         </div>
       </UpdateDiscountForm>
     </div>
@@ -141,7 +143,7 @@ function CartGiftCard({
                 &nbsp;
                 <Money data={giftCard.amountUsed} />
                 &nbsp;
-                <button type="submit">Remove</button>
+                <Button variant="outline" type="submit">Remove</Button>
               </div>
             </RemoveGiftCardForm>
           ))}
@@ -155,16 +157,16 @@ function CartGiftCard({
         fetcherKey="gift-card-add"
       >
         <div>
-          <input
+          <Input
             type="text"
             name="giftCardCode"
             placeholder="Gift card code"
             ref={giftCardCodeInput}
           />
           &nbsp;
-          <button type="submit" disabled={giftCardAddFetcher.state !== 'idle'}>
+          <Button variant="outline" type="submit" disabled={giftCardAddFetcher.state !== 'idle'}>
             Apply
-          </button>
+          </Button>
         </div>
       </UpdateGiftCardForm>
     </div>
