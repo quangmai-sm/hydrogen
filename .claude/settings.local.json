@@ -8,7 +8,9 @@
       "Bash(curl:*)",
       "Bash(lsof:*)",
       "mcp__playwright",
-      "Read(//Users/vnhcmlap-0093/.claude/**)"
+      "Read(//Users/vnhcmlap-0093/.claude/**)",
+      "Bash(openspec list:*)",
+      "Bash(openspec validate:*)"
     ],
     "deny": [],
     "ask": []
