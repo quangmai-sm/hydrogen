@@ -8,7 +8,8 @@
       "Bash(curl:*)",
       "Bash(lsof:*)",
       "mcp__playwright",
-      "Read(//Users/vnhcmlap-0093/.claude/**)"
+      "Read(//Users/vnhcmlap-0093/.claude/**)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []

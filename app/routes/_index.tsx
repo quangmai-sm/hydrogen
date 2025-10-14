@@ -1,12 +1,13 @@
-import {Await, useLoaderData, Link} from 'react-router';
+import {Await, useLoaderData} from 'react-router';
 import type {Route} from './+types/_index';
 import {Suspense} from 'react';
-import {Image} from '@shopify/hydrogen';
 import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
+import {HeroBanner} from '~/components/HeroBanner';
+import {Section} from '~/components/Section';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -60,33 +61,23 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      <HeroBanner
+        collection={data.featuredCollection}
+        height="large"
+        buttonText="Explore Collection"
+      />
+      <Section
+        title="Featured Products"
+        subtitle="Discover our latest collection"
+        background="white"
+        padding="large"
+      >
+        <RecommendedProducts products={data.recommendedProducts} />
+      </Section>
     </div>
   );
 }
 
-function FeaturedCollection({
-  collection,
-}: {
-  collection: FeaturedCollectionFragment;
-}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
 
 function RecommendedProducts({
   products,
@@ -94,23 +85,19 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {(response) => (
-            <div className="recommended-products-grid">
-              {response
-                ? response.products.nodes.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                  ))
-                : null}
-            </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Await resolve={products}>
+        {(response) => (
+          <div className="recommended-products-grid">
+            {response
+              ? response.products.nodes.map((product) => (
+                  <ProductItem key={product.id} product={product} />
+                ))
+              : null}
+          </div>
+        )}
+      </Await>
+    </Suspense>
   );
 }
 

@@ -4,3 +4,32 @@
  */
 
 @import 'tailwindcss';
+
+/**
+ * Mila Theme Design Tokens
+ */
+@theme {
+  /* Brand Colors */
+  --color-mila-primary: #E8E4DF;
+  --color-mila-dark: #212121;
+  --color-mila-light: #FFFFFF;
+
+  /* Spacing from Figma */
+  --spacing-section-mobile: 50px;
+  --spacing-section-desktop: 90px;
+  --spacing-gap-small: 20px;
+  --spacing-gap-medium: 30px;
+  --spacing-gap-large: 40px;
+
+  /* Layout widths */
+  --max-width-desktop: 1400px;
+  --max-width-mobile: 375px;
+
+  /* Overlay colors */
+  --overlay-light: rgba(0, 0, 0, 0.1);
+  --overlay-medium: rgba(0, 0, 0, 0.2);
+  --overlay-dark: rgba(0, 0, 0, 0.3);
+
+  /* Typography */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}

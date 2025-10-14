@@ -29,20 +29,25 @@ export function Header({
   const {shop, menu} = header;
   return (
     <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas
-        isLoggedIn={isLoggedIn}
-        cart={cart}
-        wishlistCount={wishlistCount}
-      />
+      <div className="header-container">
+        <div className="header-left">
+          <HeaderMenuMobileToggle />
+          <NavLink prefetch="intent" to="/" className="header-logo" end>
+            <strong>{shop.name}</strong>
+          </NavLink>
+        </div>
+        <HeaderMenu
+          menu={menu}
+          viewport="desktop"
+          primaryDomainUrl={header.shop.primaryDomain.url}
+          publicStoreDomain={publicStoreDomain}
+        />
+        <HeaderCtas
+          isLoggedIn={isLoggedIn}
+          cart={cart}
+          wishlistCount={wishlistCount}
+        />
+      </div>
     </header>
   );
 }
@@ -109,15 +114,16 @@ function HeaderCtas({
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart' | 'wishlistCount'>) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+      <SearchToggle />
+      <NavLink prefetch="intent" to="/account" className="header-cta-link">
+        <Suspense fallback={<span>Account</span>}>
+          <Await resolve={isLoggedIn} errorElement={<span>Account</span>}>
+            {(isLoggedIn) => (
+              <span>{isLoggedIn ? 'Account' : 'Account'}</span>
+            )}
           </Await>
         </Suspense>
       </NavLink>
-      <SearchToggle />
       <WishlistIcon count={wishlistCount} />
       <CartToggle cart={cart} />
     </nav>
@@ -128,10 +134,22 @@ function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
     <button
-      className="header-menu-mobile-toggle reset"
+      className="header-menu-mobile-toggle"
       onClick={() => open('mobile')}
+      aria-label="Open menu"
     >
-      <h3>☰</h3>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
     </button>
   );
 }
@@ -139,8 +157,22 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
+    <button
+      className="header-icon-btn"
+      onClick={() => open('search')}
+      aria-label="Search"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <circle cx="9" cy="9" r="6" />
+        <line x1="14" y1="14" x2="18" y2="18" />
+      </svg>
     </button>
   );
 }

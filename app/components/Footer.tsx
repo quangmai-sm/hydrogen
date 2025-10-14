@@ -18,13 +18,24 @@ export function Footer({
       <Await resolve={footerPromise}>
         {(footer) => (
           <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
-              />
-            )}
+            <div className="footer-container">
+              <div className="footer-content">
+                <div className="footer-brand">
+                  <h3>{header.shop.name}</h3>
+                  <p>Premium quality products for modern living</p>
+                </div>
+                {footer?.menu && header.shop.primaryDomain?.url && (
+                  <FooterMenu
+                    menu={footer.menu}
+                    primaryDomainUrl={header.shop.primaryDomain.url}
+                    publicStoreDomain={publicStoreDomain}
+                  />
+                )}
+              </div>
+              <div className="footer-bottom">
+                <p>&copy; {new Date().getFullYear()} {header.shop.name}. All rights reserved.</p>
+              </div>
+            </div>
           </footer>
         )}
       </Await>
