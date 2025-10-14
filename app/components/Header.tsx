@@ -5,9 +5,11 @@ import {
   useAnalytics,
   useOptimisticCart,
 } from '@shopify/hydrogen';
+import {Search, User, Menu, ShoppingCart} from 'lucide-react';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import {WishlistIcon} from '~/components/WishlistIcon';
+import {Badge} from '~/components/ui/badge';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -28,21 +30,43 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas
-        isLoggedIn={isLoggedIn}
-        cart={cart}
-        wishlistCount={wishlistCount}
-      />
+    <header className="sticky top-0 z-[var(--z-index-sticky)] bg-white border-b border-gray-200">
+      <div className="mx-auto max-w-[1400px] px-4 md:px-6">
+        <div className="flex items-center justify-between h-[84px]">
+          {/* Mobile Menu Toggle - Left on Mobile */}
+          <div className="flex items-center md:hidden">
+            <HeaderMenuMobileToggle />
+          </div>
+
+          {/* Logo - Left on Desktop, Center on Mobile */}
+          <div className="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0">
+            <NavLink
+              prefetch="intent"
+              to="/"
+              className="text-xl font-bold text-gray-900 hover:opacity-80 transition-opacity"
+            >
+              {shop.name}
+            </NavLink>
+          </div>
+
+          {/* Desktop Navigation - Center */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <HeaderMenu
+              menu={menu}
+              viewport="desktop"
+              primaryDomainUrl={header.shop.primaryDomain.url}
+              publicStoreDomain={publicStoreDomain}
+            />
+          </div>
+
+          {/* Header CTAs - Right */}
+          <HeaderCtas
+            isLoggedIn={isLoggedIn}
+            cart={cart}
+            wishlistCount={wishlistCount}
+          />
+        </div>
+      </div>
     </header>
   );
 }
@@ -58,26 +82,55 @@ export function HeaderMenu({
   viewport: Viewport;
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
-  const className = `header-menu-${viewport}`;
   const {close} = useAside();
 
-  return (
-    <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
+  if (viewport === 'mobile') {
+    return (
+      <nav className="flex flex-col gap-6 py-6" role="navigation">
         <NavLink
           end
           onClick={close}
           prefetch="intent"
-          style={activeLinkStyle}
           to="/"
+          className={({isActive}) =>
+            `text-lg ${isActive ? 'font-semibold' : 'font-normal'} hover:opacity-80 transition-opacity`
+          }
         >
           Home
         </NavLink>
-      )}
+        {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+          if (!item.url) return null;
+
+          const url =
+            item.url.includes('myshopify.com') ||
+            item.url.includes(publicStoreDomain) ||
+            item.url.includes(primaryDomainUrl)
+              ? new URL(item.url).pathname
+              : item.url;
+          return (
+            <NavLink
+              end
+              key={item.id}
+              onClick={close}
+              prefetch="intent"
+              to={url}
+              className={({isActive}) =>
+                `text-lg ${isActive ? 'font-semibold' : 'font-normal'} hover:opacity-80 transition-opacity`
+              }
+            >
+              {item.title}
+            </NavLink>
+          );
+        })}
+      </nav>
+    );
+  }
+
+  return (
+    <nav className="flex items-center gap-8" role="navigation">
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
-        // if the url is internal, we strip the domain
         const url =
           item.url.includes('myshopify.com') ||
           item.url.includes(publicStoreDomain) ||
@@ -86,13 +139,13 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
             end
             key={item.id}
-            onClick={close}
             prefetch="intent"
-            style={activeLinkStyle}
             to={url}
+            className={({isActive}) =>
+              `text-sm font-medium ${isActive ? 'text-gray-900' : 'text-gray-600'} hover:text-gray-900 transition-colors`
+            }
           >
             {item.title}
           </NavLink>
@@ -108,17 +161,12 @@ function HeaderCtas({
   wishlistCount,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart' | 'wishlistCount'>) {
   return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
+    <nav className="flex items-center gap-4 md:gap-6" role="navigation">
       <SearchToggle />
-      <WishlistIcon count={wishlistCount} />
+      <div className="hidden md:block">
+        <WishlistIcon count={wishlistCount} />
+      </div>
+      <AccountLink isLoggedIn={isLoggedIn} />
       <CartToggle cart={cart} />
     </nav>
   );
@@ -128,10 +176,11 @@ function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
     <button
-      className="header-menu-mobile-toggle reset"
+      className="p-2 -ml-2 hover:bg-gray-100 rounded-md transition-colors"
       onClick={() => open('mobile')}
+      aria-label="Open menu"
     >
-      <h3>☰</h3>
+      <Menu className="w-6 h-6" />
     </button>
   );
 }
@@ -139,9 +188,30 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
+    <button
+      className="p-2 hover:bg-gray-100 rounded-md transition-colors"
+      onClick={() => open('search')}
+      aria-label="Search"
+    >
+      <Search className="w-5 h-5" />
     </button>
+  );
+}
+
+function AccountLink({isLoggedIn}: {isLoggedIn: Promise<boolean>}) {
+  return (
+    <NavLink
+      prefetch="intent"
+      to="/account"
+      className="hidden md:flex p-2 hover:bg-gray-100 rounded-md transition-colors"
+      aria-label="Account"
+    >
+      <Suspense fallback={<User className="w-5 h-5" />}>
+        <Await resolve={isLoggedIn} errorElement={<User className="w-5 h-5" />}>
+          {() => <User className="w-5 h-5" />}
+        </Await>
+      </Suspense>
+    </NavLink>
   );
 }
 
@@ -150,8 +220,8 @@ function CartBadge({count}: {count: number | null}) {
   const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
-    <a
-      href="/cart"
+    <button
+      className="relative p-2 hover:bg-gray-100 rounded-md transition-colors"
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -162,9 +232,15 @@ function CartBadge({count}: {count: number | null}) {
           url: window.location.href || '',
         } as CartViewPayload);
       }}
+      aria-label={`Cart with ${count ?? 0} items`}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
+      <ShoppingCart className="w-5 h-5" />
+      {count !== null && count > 0 && (
+        <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
+          {count}
+        </span>
+      )}
+    </button>
   );
 }
 
@@ -225,16 +301,3 @@ const FALLBACK_HEADER_MENU = {
     },
   ],
 };
-
-function activeLinkStyle({
-  isActive,
-  isPending,
-}: {
-  isActive: boolean;
-  isPending: boolean;
-}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
-  };
-}

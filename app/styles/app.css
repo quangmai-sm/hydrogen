@@ -747,3 +747,21 @@ button.reset:hover:not(:has(> *)) {
 .product-header h1 {
   margin: 0;
 }
+
+/*
+* --------------------------------------------------
+* Scrolling Banner Animation
+* --------------------------------------------------
+*/
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--scroll-speed, 30s) linear infinite;
+}

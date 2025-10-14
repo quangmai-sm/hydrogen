@@ -1,4 +1,4 @@
-import {Await, useLoaderData, Link} from 'react-router';
+import {Await, useLoaderData} from 'react-router';
 import type {Route} from './+types/_index';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
@@ -6,7 +6,9 @@ import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
-import {ProductItem} from '~/components/ProductItem';
+import {BannerSection} from '~/components/sections/BannerSection';
+import {ProductGridSection} from '~/components/sections/ProductGridSection';
+import {Section, Container} from '~/components/layout';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -60,8 +62,27 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
+      {/* Hero Banner */}
       <FeaturedCollection collection={data.featuredCollection} />
+
+      {/* Recommended Products Section */}
       <RecommendedProducts products={data.recommendedProducts} />
+
+      {/* Featured Content Section */}
+      <Section variant="mila" padding="desktop">
+        <Container maxWidth="narrow">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Our Vision
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              We believe in creating timeless pieces that celebrate individuality
+              and craftsmanship. Every product is thoughtfully curated to bring
+              joy and quality to your everyday life.
+            </p>
+          </div>
+        </Container>
+      </Section>
     </div>
   );
 }
@@ -74,17 +95,16 @@ function FeaturedCollection({
   if (!collection) return null;
   const image = collection?.image;
   return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
+    <BannerSection
+      title={collection.title}
+      subtitle="Discover our latest collection"
+      ctaText="Shop Now"
+      ctaLink={`/collections/${collection.handle}`}
+      backgroundImage={image?.url}
+      height="hero"
+      textAlignment="center"
+      overlay={true}
+    />
   );
 }
 
@@ -94,23 +114,34 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {(response) => (
-            <div className="recommended-products-grid">
-              {response
-                ? response.products.nodes.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                  ))
-                : null}
+    <Suspense
+      fallback={
+        <Section variant="default" padding="desktop">
+          <Container maxWidth="desktop">
+            <div className="text-center">
+              <div className="text-gray-500">Loading products...</div>
             </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
+          </Container>
+        </Section>
+      }
+    >
+      <Await resolve={products}>
+        {(response) => {
+          if (!response?.products?.nodes?.length) return null;
+          return (
+            <ProductGridSection
+              title="Recommended Products"
+              description="Handpicked selections just for you"
+              products={response.products.nodes}
+              viewAllLink="/collections/all"
+              viewAllText="View All Products"
+              columns={4}
+              variant="default"
+            />
+          );
+        }}
+      </Await>
+    </Suspense>
   );
 }
 

@@ -8,9 +8,16 @@
       "Bash(curl:*)",
       "Bash(lsof:*)",
       "mcp__playwright",
+      "mcp__shadcn-ui",
+      "mcp__Framelink_Figma_MCP__download_figma_images",
       "Read(//Users/vnhcmlap-0093/.claude/**)",
       "Bash(openspec list:*)",
-      "Bash(openspec validate:*)"
+      "Bash(openspec validate:*)",
+      "Bash(npm install lucide-react)",
+      "Bash(mkdir:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint)",
+      "Bash(xargs kill:*)"
     ],
     "deny": [],
     "ask": []
