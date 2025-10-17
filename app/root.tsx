@@ -159,7 +159,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body style={{backgroundColor: 'var(--color-primary-mila-branding)', fontFamily: 'var(--font-family-avenir)'}}>
         {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />

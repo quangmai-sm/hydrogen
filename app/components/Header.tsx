@@ -29,16 +29,21 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
+    <header className="header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--color-primary-mila-branding)'}}>
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <HeaderMenuMobileToggle />
+        <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+          <img src="/mila-assets/logo.svg" alt="Mila Logo" style={{ height: '42px' }} />
+        </NavLink>
+      </div>
+      <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+        <HeaderMenu
+          menu={menu}
+          viewport="desktop"
+          primaryDomainUrl={header.shop.primaryDomain.url}
+          publicStoreDomain={publicStoreDomain}
+        />
+      </div>
       <HeaderCtas
         isLoggedIn={isLoggedIn}
         cart={cart}
@@ -110,13 +115,9 @@ function HeaderCtas({
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart' | 'wishlistCount'>) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
+      
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
       </NavLink>
       <SearchToggle />
       <WishlistIcon count={wishlistCount} />
@@ -134,7 +135,7 @@ function HeaderMenuMobileToggle() {
       className="header-menu-mobile-toggle"
       onClick={() => open('mobile')}
     >
-      <h3>☰</h3>
+      <img src="/mila-assets/list.svg" alt="Menu" style={{ width: '24px', height: '24px' }} />
     </Button>
   );
 }
@@ -143,7 +144,7 @@ function SearchToggle() {
   const {open} = useAside();
   return (
     <Button variant="ghost" onClick={() => open('search')}>
-      Search
+<img src="/mila-assets/search.svg" alt="Search" style={{ width: '24px', height: '24px' }} />
     </Button>
   );
 }
@@ -166,7 +167,26 @@ function CartBadge({count}: {count: number | null}) {
         } as CartViewPayload);
       }}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
+      <div style={{ position: 'relative' }}>
+      <img src="/mila-assets/tote-simple.svg" alt="Cart" style={{ width: '24px', height: '24px' }} />
+      {count !== null && count > 0 && (
+        <span style={{
+          position: 'absolute',
+          top: '-8px',
+          right: '-8px',
+          background: 'var(--color-primary-gray-800)',
+          color: 'var(--color-primary-white)',
+          borderRadius: '50%',
+          width: '18px',
+          height: '18px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '11px',
+          fontWeight: 'bold',
+        }}>{count}</span>
+      )}
+    </div>
     </a>
   );
 }
