@@ -9,6 +9,8 @@ https://blog.bytebytego.com/p/what-actually-happens-when-you-press
 
 https://blog.bytebytego.com/p/the-memory-problem-why-llms-sometimes
 
+https://github.com/anthropics/claude-agent-sdk-demos/blob/main/hello-world/hello-world.ts
+
 ```
 Despite their speed and ability to manage larger and larger volumes of data, we’ve observed that LLMs, like humans, lose focus or experience confusion at a certain point.
 ```
